@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Layout from 'components/Layout';
 import Image from 'next/image';
+import Link from 'next/Link';
 import Date from 'components/Date';
 import {GetStaticProps} from 'next';
 import {getSortedPostsData} from '../lib/posts';
@@ -25,18 +26,22 @@ export default function IndexPage({
         <ArticlesWrapper>
           {allPostsData.map(({id, title, date}) => (
             <ArticleWrapper key={id}>
-              <ImageWrapper>
-                <Image
-                  src="/images/default.jpeg"
-                  alt="article"
-                  layout="fill"
-                  objectFit="cover"
-                />
-              </ImageWrapper>
-              <Title>{title}</Title>
-              <DateWrapper>
-                <Date dateString={date} />
-              </DateWrapper>
+              <Link href={`/posts/${id}`}>
+                <a>
+                  <ImageWrapper>
+                    <Image
+                      src="/images/default.jpeg"
+                      alt="article"
+                      layout="fill"
+                      objectFit="cover"
+                    />
+                  </ImageWrapper>
+                  <Title>{title}</Title>
+                  <DateWrapper>
+                    <Date dateString={date} />
+                  </DateWrapper>
+                </a>
+              </Link>
             </ArticleWrapper>
           ))}
         </ArticlesWrapper>
@@ -103,9 +108,6 @@ const ArticlesWrapper = styled.div`
 const ArticleWrapper = styled.div`
   transform: translateY(-2px);
   transition: all 0.2s linear;
-  cursor: pointer;
-  text-decoration: none;
-  color: inherit;
 
   &:hover {
     & > div:first-child {

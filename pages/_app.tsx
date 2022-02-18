@@ -1,6 +1,7 @@
 import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import reset from 'styled-reset';
 import {lightTheme, darkTheme} from 'theme';
+import {AppProps} from 'next/app';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -37,7 +38,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default function App({Component, pageProps}) {
+export default function App({Component, pageProps}: AppProps) {
   return (
     <>
       <GlobalStyle />
