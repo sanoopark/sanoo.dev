@@ -13,6 +13,7 @@ export default function IndexPage({
     id: string;
     title: string;
     date: string;
+    image: string;
   }[];
 }) {
   return (
@@ -24,13 +25,13 @@ export default function IndexPage({
       <Label>Latest Articles</Label>
       {allPostsData.length && (
         <ArticlesWrapper>
-          {allPostsData.map(({id, title, date}) => (
+          {allPostsData.map(({id, title, date, image}) => (
             <ArticleWrapper key={id}>
               <Link href={`/posts/${id}`}>
                 <a>
                   <ImageWrapper>
                     <Image
-                      src="/images/default.jpeg"
+                      src={image || '/images/default.jpeg'}
                       alt="article"
                       layout="fill"
                       objectFit="cover"
@@ -62,7 +63,7 @@ export const getStaticProps: GetStaticProps = async () => {
 const Banner = styled.section`
   display: flex;
   flex-direction: column;
-  padding-bottom: 8rem;
+  padding-bottom: 6rem;
 `;
 
 const Heading = styled.h1`
@@ -110,7 +111,7 @@ const ArticleWrapper = styled.div`
   transition: all 0.2s linear;
 
   &:hover {
-    & > div:first-child {
+    & > a > div:first-child {
       transform: translateY(-2px);
       transition: all 0.2s linear;
       box-shadow: ${({theme}) => `0 8px 25px ${theme.colors.hover}`};
@@ -128,6 +129,7 @@ const ImageWrapper = styled.div`
   overflow: hidden;
   width: 100%;
   height: 16.5rem;
+  box-shadow: ${({theme}) => `1px 1px 1px ${theme.colors.hover}`};
 `;
 
 const Title = styled.h3`

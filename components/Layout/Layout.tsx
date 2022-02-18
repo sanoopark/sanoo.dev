@@ -27,13 +27,9 @@ export default function Layout({children}) {
 const Container = styled.div`
   width: calc(100% - 3rem);
   max-width: 46rem;
-  margin: 12rem auto 0 auto;
+  margin: 4rem auto 0 auto;
 
   @media (min-width: 1024px) {
-    max-width: 65rem;
-  }
-
-  @media (min-width: 768px) {
-    margin-top: 6rem;
+    max-width: 64rem;
   }
 `;

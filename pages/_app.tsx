@@ -2,6 +2,7 @@ import {createGlobalStyle, ThemeProvider} from 'styled-components';
 import reset from 'styled-reset';
 import {lightTheme, darkTheme} from 'theme';
 import {AppProps} from 'next/app';
+import 'public/styles/markdown-light.css';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -20,7 +21,6 @@ const GlobalStyle = createGlobalStyle`
     height: 100%;
     min-height: 100vh;
     background-color: #fff;
-    background-image: linear-gradient(#fff 90%, #73737d 145%);
     font-size: 1.125rem;
     line-height: 1.75rem;
     font-family: NanumSquareRoundR, sans-serif;
@@ -36,6 +36,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: NanumSquareRoundB, sans-serif;
     src: url("/fonts/NanumSquareRoundB.ttf") format("truetype");
   }
+
+  .markdown-body {
+		margin: 0 auto;
+    max-width: 48rem;
+	}
 `;
 
 export default function App({Component, pageProps}: AppProps) {

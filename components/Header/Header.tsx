@@ -27,10 +27,6 @@ interface HeaderProps {
 }
 
 const Wrapper = styled.div`
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
   display: grid;
   grid-template-columns: max-content 1fr;
   justify-items: end;
@@ -38,14 +34,9 @@ const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: calc(100% - 3rem);
-  max-width: 65rem;
-  padding: 1rem 1.5rem;
+  max-width: 64rem;
+  padding: 1rem 0;
   background-color: ${({theme}) => theme.colors.background};
-
-  @media (min-width: 768px) {
-    position: static;
-    padding: 1rem 0;
-  }
 `;
 
 const LogoWrapper = styled.a`
