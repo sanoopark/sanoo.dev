@@ -17,7 +17,7 @@ export default function Layout({children}) {
         <meta name="og:title" content="" />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <Header name="sanoopark" />
+      <Header />
       <Container>{children}</Container>
       <Footer social={social} />
     </>
