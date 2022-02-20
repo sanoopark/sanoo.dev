@@ -67,9 +67,26 @@ const Banner = styled.section`
 `;
 
 const Heading = styled.h1`
-  font-size: 3rem;
-  font-family: NanumSquareRoundB, sans-serif;
-  line-height: 3.5rem;
+  border-right: 0.1em solid black;
+  width: 9ch;
+  white-space: nowrap;
+  overflow: hidden;
+  font: 2rem monospace;
+  color: ${({theme}) => theme.colors.info};
+
+  animation: typing 3s steps(9, end),
+    blink-caret 0.5s step-end infinite alternate;
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+  }
+  @keyframes blink-caret {
+    50% {
+      border-color: transparent;
+    }
+  }
 
   @media (min-width: 768px) {
     font-size: 3.75rem;
@@ -82,6 +99,7 @@ const SubHeading = styled.h2`
   font-size: 1.25rem;
   line-height: 1.75rem;
   word-break: keep-all;
+  color: ${({theme}) => theme.colors.info};
 
   @media (min-width: 768px) {
     font-size: 1.5rem;
