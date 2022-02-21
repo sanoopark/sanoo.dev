@@ -95,7 +95,7 @@ const Heading = styled.h1`
 `;
 
 const SubHeading = styled.h2`
-  margin-top: 0.5rem;
+  padding-top: 0.5rem;
   font-size: 1.25rem;
   line-height: 1.75rem;
   word-break: keep-all;
@@ -108,7 +108,7 @@ const SubHeading = styled.h2`
 `;
 
 const Label = styled.h3`
-  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
   font-size: 1.25rem;
   line-height: 1.75rem;
   font-family: NanumSquareRoundB, sans-serif;
@@ -158,7 +158,7 @@ const Title = styled.h3`
 `;
 
 const DateWrapper = styled.div`
-  padding: 1rem 0 0.5rem 0;
+  padding-top: 1rem;
   line-height: 1.25rem;
   color: ${({theme}) => theme.colors.muted};
 `;

@@ -1,11 +1,11 @@
 import {createGlobalStyle, ThemeProvider} from 'styled-components';
-import reset from 'styled-reset';
 import {lightTheme, darkTheme} from 'theme';
 import {AppProps} from 'next/app';
 import 'public/styles/markdown-light.css';
+import {normalize} from 'styled-normalize';
 
 const GlobalStyle = createGlobalStyle`
-  ${reset}
+  ${normalize}
 
   a {
     text-decoration: none;
@@ -25,6 +25,11 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.75rem;
     font-family: NanumSquareRoundR, sans-serif;
     color: #0a0c10;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    font-weight: normal;
   }
 
   @font-face {
