@@ -64,6 +64,16 @@ const Wrapper = styled.div`
 const LogoWrapper = styled.a`
   display: flex;
   align-items: center;
+
+  &:hover {
+    div:nth-child(2) > span {
+      display: none;
+    }
+
+    div:nth-child(2):before {
+      content: 'Home';
+    }
+  }
 `;
 
 const ImageWrapper = styled.div`
@@ -80,15 +90,6 @@ const SiteName = styled.div`
   line-height: 1.75rem;
   font-weight: 400;
   text-decoration: none;
-  color: ${({theme}) => theme.colors.text};
-
-  &:hover span {
-    display: none;
-  }
-
-  &:hover:before {
-    content: 'Home';
-  }
 `;
 
 const LinkWrapper = styled.div`

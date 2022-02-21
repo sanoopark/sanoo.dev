@@ -72,7 +72,6 @@ const Heading = styled.h1`
   white-space: nowrap;
   overflow: hidden;
   font: 2rem monospace;
-  color: ${({theme}) => theme.colors.info};
 
   animation: typing 3s steps(9, end),
     blink-caret 0.5s step-end infinite alternate;
@@ -99,7 +98,6 @@ const SubHeading = styled.h2`
   font-size: 1.25rem;
   line-height: 1.75rem;
   word-break: keep-all;
-  color: ${({theme}) => theme.colors.info};
 
   @media (min-width: 768px) {
     font-size: 1.5rem;
@@ -133,10 +131,6 @@ const ArticleWrapper = styled.div`
       transform: translateY(-2px);
       transition: all 0.2s linear;
       box-shadow: ${({theme}) => `0 8px 25px ${theme.colors.hover}`};
-    }
-
-    & > h3 {
-      color: ${({theme}) => theme.colors.accent};
     }
   }
 `;
