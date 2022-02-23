@@ -10,16 +10,20 @@ export default function MaxImage({src, alt}) {
 }
 
 const ImageWrapper = styled.div`
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 1rem;
 
   > span {
     position: unset !important;
+    border-radius: 0.4rem;
+    overflow: hidden;
   }
 
   > span > img {
+    position: relative !important;
     object-fit: contain;
     width: 100% !important;
-    position: relative !important;
     height: unset !important;
   }
 `;

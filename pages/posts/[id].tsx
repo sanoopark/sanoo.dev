@@ -57,12 +57,10 @@ const customComponents = {
 
     if (isImageElement) {
       return (
-        <ImageFrame>
-          <MaxImage
-            src={`${element.properties.src}`}
-            alt={`${element.properties.alt}`}
-          />
-        </ImageFrame>
+        <MaxImage
+          src={`${element.properties.src}`}
+          alt={`${element.properties.alt}`}
+        />
       );
     }
 
@@ -99,7 +97,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 const ImageFrame = styled.div`
   position: relative;
   overflow: hidden;
-  border-radius: 0.375rem;
+  border-radius: 0.4rem;
   margin-bottom: 2rem;
 
   &:hover {
