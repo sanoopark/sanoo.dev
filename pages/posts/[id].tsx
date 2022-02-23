@@ -1,10 +1,14 @@
 import styled from 'styled-components';
-import Layout from 'components/Layout';
+import {GetStaticProps, GetStaticPaths} from 'next';
 import {getAllPostIds, getPostData} from 'lib/posts';
 import Head from 'next/head';
-import Date from 'components/Date';
 import Image from 'next/image';
-import {GetStaticProps, GetStaticPaths} from 'next';
+import Date from 'components/Date';
+import Layout from 'components/Layout';
+import MaxImage from 'components/MaxImage';
+import ReactMarkdown from 'react-markdown';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import {atomOneLight} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export default function Post({
   postData,
@@ -22,7 +26,7 @@ export default function Post({
         <title>{postData.title}</title>
       </Head>
       <article className="markdown-body">
-        <ImageWrapper>
+        <ImageFrame>
           <Image
             src={postData.image || '/images/default.jpeg'}
             alt="article"
@@ -30,17 +34,50 @@ export default function Post({
             height={32}
             layout="responsive"
             objectFit="cover"
+            priority={true}
           />
-        </ImageWrapper>
+        </ImageFrame>
         <h1>{postData.title}</h1>
         <DateWrapper>
           <Date dateString={postData.date} />
         </DateWrapper>
-        <div dangerouslySetInnerHTML={{__html: postData.contentHtml}} />
+        <ReactMarkdown components={customComponents as any}>
+          {postData.contentHtml}
+        </ReactMarkdown>
       </article>
     </Layout>
   );
 }
+
+const customComponents = {
+  p: ({node, children}) => {
+    const element = node.children[0];
+    const isImageElement =
+      element.type === 'element' && element.tagName === 'img';
+
+    if (isImageElement) {
+      return (
+        <ImageFrame>
+          <MaxImage
+            src={`${element.properties.src}`}
+            alt={`${element.properties.alt}`}
+          />
+        </ImageFrame>
+      );
+    }
+
+    return <p>{children}</p>;
+  },
+  code({className, children}) {
+    const language = className?.replace('language-', '');
+
+    return (
+      <SyntaxHighlighter style={atomOneLight} language={language}>
+        {children[0]}
+      </SyntaxHighlighter>
+    );
+  },
+};
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = getAllPostIds();
@@ -59,11 +96,10 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
   };
 };
 
-const ImageWrapper = styled.div`
+const ImageFrame = styled.div`
   position: relative;
-  border-radius: 0.375rem;
   overflow: hidden;
-  width: 100%;
+  border-radius: 0.375rem;
   margin-bottom: 2rem;
 
   &:hover {
