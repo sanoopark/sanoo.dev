@@ -70,7 +70,11 @@ const customComponents = {
     const language = className?.replace('language-', '');
 
     return (
-      <SyntaxHighlighter style={atomOneLight} language={language}>
+      <SyntaxHighlighter
+        style={atomOneLight}
+        language={language}
+        wrapLongLines={true}
+      >
         {children[0]}
       </SyntaxHighlighter>
     );
