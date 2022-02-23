@@ -10,6 +10,7 @@ export default function MaxImage({src, alt}) {
 }
 
 const ImageWrapper = styled.div`
+  position: relative;
   width: 80%;
   margin: 0 auto;
   margin-bottom: 1rem;
