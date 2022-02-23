@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
     transition: color 0.2s ease-in-out;
     transition: background-color 0.2s ease-in-out;
     margin: 0;
-    padding: 0;
+    padding-bottom: 4rem;
     box-sizing: border-box;
     height: 100%;
     min-height: 100vh;

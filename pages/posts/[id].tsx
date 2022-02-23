@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Date from 'components/Date';
 import Layout from 'components/Layout';
 import MaxImage from 'components/MaxImage';
+import Comment from 'components/Comment';
 import ReactMarkdown from 'react-markdown';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {atomOneLight} from 'react-syntax-highlighter/dist/cjs/styles/hljs';
@@ -21,31 +22,34 @@ export default function Post({
   };
 }) {
   return (
-    <Layout>
-      <Head>
-        <title>{postData.title}</title>
-      </Head>
-      <article className="markdown-body">
-        <ImageFrame>
-          <Image
-            src={postData.image || '/images/default.jpeg'}
-            alt="article"
-            width={48}
-            height={32}
-            layout="responsive"
-            objectFit="cover"
-            priority={true}
-          />
-        </ImageFrame>
-        <h1>{postData.title}</h1>
-        <DateWrapper>
-          <Date dateString={postData.date} />
-        </DateWrapper>
-        <ReactMarkdown components={customComponents as any}>
-          {postData.contentHtml}
-        </ReactMarkdown>
-      </article>
-    </Layout>
+    <>
+      <Layout>
+        <Head>
+          <title>{postData.title}</title>
+        </Head>
+        <article className="markdown-body">
+          <ImageFrame>
+            <Image
+              src={postData.image || '/images/default.jpeg'}
+              alt="article"
+              width={48}
+              height={32}
+              layout="responsive"
+              objectFit="cover"
+              priority={true}
+            />
+          </ImageFrame>
+          <h1>{postData.title}</h1>
+          <DateWrapper>
+            <Date dateString={postData.date} />
+          </DateWrapper>
+          <ReactMarkdown components={customComponents as any}>
+            {postData.contentHtml}
+          </ReactMarkdown>
+        </article>
+      </Layout>
+      <Comment />
+    </>
   );
 }
 

@@ -1,13 +1,10 @@
 import styled from 'styled-components';
 import Head from 'next/head';
-import Footer from '../Footer';
 import Header from '../Header';
 
 export const siteTitle = 'Next.js Sample Website';
 
 export default function Layout({children}) {
-  const social = [{name: 'Github', url: 'github.com/sanoopark'}];
-
   return (
     <>
       <Head>
@@ -19,7 +16,7 @@ export default function Layout({children}) {
       </Head>
       <Header />
       <Container>{children}</Container>
-      <Footer social={social} />
+      <Separator />
     </>
   );
 }
@@ -31,5 +28,17 @@ const Container = styled.div`
 
   @media (min-width: 1024px) {
     max-width: 64rem;
+  }
+`;
+
+const Separator = styled.hr`
+  width: 100%;
+  max-width: 46rem;
+  margin: 4rem auto;
+  color: ${({theme}) => theme.colors.muted};
+  opacity: 40%;
+
+  @media (min-width: 1024px) {
+    max-width: 48rem;
   }
 `;
