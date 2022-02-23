@@ -23,15 +23,15 @@ ComePet은 사용자가 반려동물 실종 공고를 올리면 해당 동물을
 비회원이 메인 페이지 `/`에서 프로필 수정 버튼을 눌러 프로필 수정 페이지 `/edit/profile`에 가려고 하면 로그인 페이지 `/login`로 리다이렉트 하도록 하고 싶었다. 이것을 `RequireAuth`라는 라우터 함수로 구현했다.
 
 ```javascript
-    const RequireAuth = () => {
-    const { isLoggedIn } = useAuth();
-    const location = useLocation();
+const RequireAuth = () => {
+const { isLoggedIn } = useAuth();
+const location = useLocation();
 
-    if (!isLoggedIn) {
-        return <Navigate to="/login" state={{ from: location }} />;
-    }
+if (!isLoggedIn) {
+    return <Navigate to="/login" state={{ from: location }} />;
+}
 
-    return <Outlet />;
+return <Outlet />;
 ```
 
 그런데 문제는 만약 비회원인 사용자가 로그인 페이지 `/login`에서 로그인하지 않고 뒤로가기 버튼을 누르면 메인 페이지 `/`로 돌아가지 못하는 현상이 발생한다.
@@ -39,14 +39,14 @@ ComePet은 사용자가 반려동물 실종 공고를 올리면 해당 동물을
 돌아가지 못하는 게 당연한 것이 뒤로가기를 하면 `/edit/profile`이기 때문에 다시 `/login`으로 리다이렉트 되는 과정이 반복되기 때문이다. 다시 말하면 히스토리 스택에 `/edit/profile`이 계속 남아있기 때문이다. 이것을 해결하기 위해 replace 옵션을 사용했다.
 
 ```javascript
-    const RequireAuth = () => {
-    const { isLoggedIn } = useAuth();
+const RequireAuth = () => {
+const { isLoggedIn } = useAuth();
 
-    if (!isLoggedIn) {
-        return <Navigate to="/login" replace />;
-    }
+if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+}
 
-    return <Outlet />;
+return <Outlet />;
 ```
 
 > `/` -> ( `/edit/profile` 삭제) -> `/login` -> 뒤로가기 -> `/`
@@ -60,14 +60,14 @@ ComePet은 사용자가 반려동물 실종 공고를 올리면 해당 동물을
 사용자가 페이지를 변경하기 위해 URL을 입력하면 현재 페이지에 머무르는 현상이다. 원인은 `isLoggedIn`이라는 값이 인증 API를 거쳐 늦게 업데이트되기 때문이었다.
 
 ```javascript
-    const RequireAuth = () => {
-    const { isLoggedIn } = useAuth();
+const RequireAuth = () => {
+const { isLoggedIn } = useAuth();
 
-    if (!isLoggedIn) {
-        return <Navigate to="/login" replace />;
-    }
+if (!isLoggedIn) {
+    return <Navigate to="/login" replace />;
+}
 
-    return <Outlet />;
+return <Outlet />;
 ```
 
 위의 RequireAuth 라우터 함수에서는 현재 사용자가 회원인지, 비회원인지 판별하기 위해 상위의 AuthContext를 구독해 isLoggedIn이라는 값을 받아온다. 정상적인 동작 순서를 나타내면 다음과 같다.
