@@ -4,7 +4,8 @@ date: '2022-02-21'
 image: 'https://user-images.githubusercontent.com/81365896/154947482-79d0ec59-aa3b-4888-b06f-ebc2f806431e.png'
 ---
 
-[Github](https://github.com/prgrms-web-devcourse/Team_i6_comepet_FE) & [Netlify](https://comepet.netlify.app/)
+- [Release](https://comepet.netlify.app/)
+- [Repository](https://github.com/prgrms-web-devcourse/Team_i6_comepet_FE)
 
 ## 소개
 
