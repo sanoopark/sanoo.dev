@@ -5,6 +5,9 @@ import Header from '../Header';
 export const siteTitle = 'Next.js Sample Website';
 
 export default function Layout({children}) {
+  const footerContent =
+    'Attribution 2.0 Korea (CC BY 2.0 KR) \n You must give appropriate credit, provide a link to the license, and indicate if changes were made.';
+
   return (
     <>
       <Head>
@@ -16,7 +19,7 @@ export default function Layout({children}) {
       </Head>
       <Header />
       <Container>{children}</Container>
-      <Separator />
+      <Footer>{footerContent}</Footer>
     </>
   );
 }
@@ -31,14 +34,11 @@ const Container = styled.div`
   }
 `;
 
-const Separator = styled.hr`
-  width: 100%;
-  max-width: 46rem;
-  margin: 4rem auto;
+const Footer = styled.div`
+  margin: 1.5rem auto 0 auto;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.3rem;
+  white-space: pre-line;
   color: ${({theme}) => theme.colors.muted};
-  opacity: 40%;
-
-  @media (min-width: 1024px) {
-    max-width: 48rem;
-  }
 `;

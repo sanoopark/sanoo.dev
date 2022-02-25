@@ -47,8 +47,9 @@ export default function Post({
             {postData.contentHtml}
           </ReactMarkdown>
         </article>
+        <Separator />
+        <Comment />
       </Layout>
-      <Comment />
     </>
   );
 }
@@ -118,4 +119,16 @@ const DateWrapper = styled.div`
   display: flex;
   justify-content: left;
   margin: 1rem 0;
+`;
+
+const Separator = styled.hr`
+  width: calc(100% - 3rem);
+  max-width: 46rem;
+  margin: 4rem auto;
+  color: ${({theme}) => theme.colors.muted};
+  opacity: 40%;
+
+  @media (min-width: 1024px) {
+    max-width: 48rem;
+  }
 `;
