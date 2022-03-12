@@ -122,9 +122,7 @@ const DateWrapper = styled.div`
 `;
 
 const Separator = styled.hr`
-  width: calc(100% - 3rem);
-  max-width: 46rem;
-  margin: 4rem auto;
+  margin: 3rem auto;
   color: ${({theme}) => theme.colors.muted};
   opacity: 40%;
 

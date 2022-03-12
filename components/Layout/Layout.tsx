@@ -5,8 +5,9 @@ import Header from '../Header';
 export const siteTitle = 'Next.js Sample Website';
 
 export default function Layout({children}) {
-  const footerContent =
-    'Attribution 2.0 Korea (CC BY 2.0 KR) \n You must give appropriate credit, provide a link to the license, and indicate if changes were made.';
+  const footerContent = `
+    © 2022 Sang-woo Park / Attribution 2.0 Korea \n You must give appropriate credit, provide a link to the license, and indicate if changes were made.
+  `;
 
   return (
     <>
@@ -35,10 +36,14 @@ const Container = styled.div`
 `;
 
 const Footer = styled.div`
-  margin: 1.5rem auto 0 auto;
+  width: 100%;
+  max-width: calc(100% - 14rem);
+  min-width: calc(100% - 3rem);
+  margin: 3rem auto 0 auto;
   text-align: center;
-  font-size: 0.8rem;
-  line-height: 1.3rem;
+  font-size: 1rem;
+  font-style: italic;
+  line-height: 1.6rem;
   white-space: pre-line;
   color: ${({theme}) => theme.colors.muted};
 `;
