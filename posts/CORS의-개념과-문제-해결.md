@@ -64,7 +64,9 @@ preflight 요청이 성공적으로 이뤄지면 브라우저는 본 요청을 �
 
 서버의 응답 쿠키에 `SameSite=None`을 추가하라는 경고 메시지다. 클라이언트에서는 Set-Cookie에 담긴 값이 쿠키에 저장되지 않는다. 그리고 다음과 같이 응답 헤더 Set-Cookie 부분에 경고 표시가 나타난다.
 
-2020년 2월에 업데이트된 Chrome 90부터는 SameSite 값이 없는 쿠키의 기본값이 Lax이기 때문에 발생한 문제다. Lax는 무조건 SameSite 여부를 체크하고, 허용된 몇 개의 패턴 이외에는 쿠키를 전송하지 않도록 막는 쿠키 정책이다.
+> A cookie associated with a cross-site resource at (Here is my domain) was set without the SameSite attribute. A future release of Chrome will only deliver cookies with cross-site requests if they are set with SameSite=None and Secure.
+
+2020년 2월에 업데이트된 Chrome 80부터는 SameSite 값이 없는 쿠키의 기본값이 Lax이기 때문에 발생한 문제다. Lax는 무조건 SameSite 여부를 체크하고, 허용된 몇 개의 패턴 이외에는 쿠키를 전송하지 않도록 막는 쿠키 정책이다.
 
 ![image](https://user-images.githubusercontent.com/81365896/154746121-783a95dd-fefd-4885-8c64-e08643e79eba.png)
 
