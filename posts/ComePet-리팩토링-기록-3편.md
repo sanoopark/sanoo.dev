@@ -7,7 +7,7 @@ image: 'https://user-images.githubusercontent.com/81365896/154947482-79d0ec59-aa
 - [Release](https://comepet.netlify.app/)
 - [Repository](https://github.com/prgrms-web-devcourse/Team_i6_comepet_FE)
 - [현재 구현된 기능에서 발생하는 버그 수정 - 1편](https://sanoo.dev/posts/ComePet-리팩토링-기록-1편)
-- [개발자 콘솔에 출력되는 각종 에러 수정 - 2편](https://sanoo.dev/posts/ComePet-리팩토링-기록-3편)
+- [개발자 콘솔에 출력되는 각종 에러 수정 - 2편](https://sanoo.dev/posts/ComePet-리팩토링-기록-2편)
 - 리프레시 토큰 구현 및 프록시 - 3편
 
 리프레시 토큰을 구현하는 과정에서 겪는 문제가 많았다. 그런데 대부분 문제는 서버의 설정이 필요한 것들이었다. 백엔드 팀원이 바쁘다 보니 서버에서 뭘 해줘야 하는지 내가 먼저 알아야 했고, 그 과정에서 얻은 지식이 많았다. 백엔드 사정으로 작업이 중단되었지만, 생각보다 많은 공부를 하게 되어 이를 정리한다.
