@@ -55,11 +55,11 @@ axios.defaults.withCredentials = true;
 
 ### 2) Allow-Origin 설정
 
-서버에서 응답을 줄 때 `Access-Control-Allow-Origin Header`를 `*`(와일드 카드)가 아닌 값으로 줘야 한다. 서버에서 와일드 카드로 응답을 준다면 클라이언트에서 다음과 같은 에러를 만날 수 있다.
+서버에서 응답을 보낼 때 `Access-Control-Allow-Origin` Header를 `*`(와일드 카드)가 아닌 값으로 줘야 클라이언트가 CORS 정책에 따라 정상적인 응답을 받을 수 있다. 서버에서 와일드 카드로 응답을 준다면 클라이언트에서 다음과 같은 에러를 만날 수 있다.
 
 > The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '\*' when the request's credentials mode is 'include'. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
 
-원래 CORS는 기본적으로 쿠키를 포함하지 않는데 Credential 설정을 통해 쿠키를 포함하게 되었다면 와일드카드로 전체 Origin을 허용하는 것이 아니라 특정 Origin만 허용하는 것이 자연스럽다.
+원래 CORS는 기본적으로 쿠키를 포함하지 않는 정책인데, Credential 설정을 통해 쿠키를 포함하게 되었다면 와일드카드로 전체 Origin을 허용하는 것이 아니라 특정 Origin만 허용하는 것이 자연스럽다.
 
 ### 3) SameSite=None 설정
 
@@ -71,9 +71,13 @@ axios.defaults.withCredentials = true;
 
 ### 4) 프록시 설정
 
-`SameSite=None`을 쿠키에 추가하는 과정에 문제가 발생했다. 백엔드에서는 `SameSite=None` 값이 추가된 것을 컨트롤러 출력을 통해 확인했다고 했지만, 클라이언트에서는 아무리 봐도 그 값을 확인할 수가 없었다. 백엔드에 계속 확인을 요청할 수가 없어 클라이언트에서 프록시를 통해 임시로 해결했다. 또한 서버에서 `Allow-Origin`이 와일드카드에서 배포 도메인으로 변경되었기 때문에 로컬에서 테스트하기 위해서도 프록시 설정이 필요했다. 여기에서 말하는 프록시는 클라이언트의 요청을 서버의 도메인으로 위장해 마치 `SameSite`인 것처럼 하는 것이다.
+`SameSite=None`을 쿠키에 추가하는 과정에 문제가 발생했다. 백엔드에서는 `SameSite=None` 값이 추가된 것을 컨트롤러 출력을 통해 확인했다고 했지만, 클라이언트에서는 아무리 봐도 그 값을 확인할 수가 없었다. 백엔드에 계속 확인을 요청할 수 있는 상황이 아니라 프록시를 통해 임시로 해결했다. 또한 서버에서 `Allow-Origin`이 와일드카드에서 배포 도메인으로 변경되었기 때문에 CORS 정책을 따라 로컬에서 테스트하려면 프록시 서버가 필요하기도 했다.
 
-리액트에서는 `package.json`에 한 줄을 추가해 간단하게 처리할 수 있다. 이때 중요한 것은 요청을 보낼 때 따로 `BASE_URL`을 설정하지 않아야 한다. 추정컨대 `http://localhost:3000/login`과 같은 식으로 요청할 때만 처리되는 방식으로 보인다. 실제로 브라우저의 네트워크 탭을 확인해보면 요청은 `http://localhost:3000/login`으로 되고 있지만 프록시는 잘 동작하는 것을 확인할 수 있다.
+여기에서 프록시는 클라이언트의 요청을 받아 실제 서버에 전달하는 개념이다. `SameSite`는 Cross-Origin 간의 쿠키를 보내는 것을 방지하는 옵션인데 프록시를 통해 Same-Origin으로 만들어주었으니 굳이 쿠키에 `SameSite=None`을 추가하지 않아도 되는 것이다.
+
+이러한 기능은 Webpack Dev Server에서 하지만 CRA를 사용한다면 `package.json`에 한 줄을 추가해 간단하게 처리할 수 있다. 그러면 클라이언트의 요청이 발생했을 때 Webpack Dev Server에서 해당 요청을 받아 백엔드 서버로 전달하고, 백엔드에서 응답한 내용을 다시 응답해준다.
+
+이때 중요한 것은 요청을 보낼 때 따로 `BASE_URL`을 설정하지 말아야 한다. 추정컨대 `localhost`로 요청할 때만만 프록시 서버에서 처리되는 방식으로 보인다. 실제로 브라우저의 네트워크 탭을 확인해보면 요청은 `http://localhost:3000/login`으로 되고 있지만 응답을 잘 받아오는 것을 볼 수 있다.
 
 ```
 // package.json
@@ -81,7 +85,7 @@ axios.defaults.withCredentials = true;
 "proxy": "https://www.comepet.com/api",
 ```
 
-로컬 환경과 달리 배포 환경은 추가적인 설정이 필요하다. Netlify의 경우에는 자체적으로 프록시를 제공해 그 기능을 사용했다.
+웹팩 데브 서버가 프록시 서버를 해주는 로컬 환경과 달리 배포 환경은 따로 서버가 필요하다. 이때 Netlify에서 제공하는 프록시 서버를 사용했다.
 
 ```
 // netlify.toml
