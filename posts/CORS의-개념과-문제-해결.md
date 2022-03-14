@@ -13,7 +13,7 @@ image: 'https://user-images.githubusercontent.com/81365896/154742239-b9b48c6f-19
 
 ## CORS는 왜 필요할까?
 
-CORS는 SOP의 엄격함을 풀어주기 위한 정책이라고 할 수 있다. 다른 도메인에서의 악의적인 요청을 차단하려면 동일 출처 정책인 SOP가 필요한데, 도메인이 다르다고 모든 공유를 막을 순 없으니 CORS를 통해 조건적으로 허용하는 것이다. 그 조건은 서버에서 허용한 Origin(Allowed Origin)과 실제 서버로 들어온 요청의 Origin이 동일해야 하는 것이다.
+CORS는 SOP의 엄격함을 풀어주기 위한 정책이라고 할 수 있다. CSRF 공격과 같이 다른 Origin에서의 악의적인 요청을 차단하려면 동일 출처 정책인 SOP가 필요한데, 항상 Origin이 같은 상황만 있는 것이 아니니, CORS를 통해 조건적으로 허용하는 것이다. 그 조건은 클라이언트에서 확인했을 때, 서버에서 허용한 Origin(Access-Control-Allowed-Origin)과 현재 Origin이 동일해야 하는 것이다. 만약 동일하지 않다면 클라이언트에서 응답 값을 참조할 수 없게 된다.
 
 ## CORS를 어떻게 지킬 수 있을까?
 
@@ -39,7 +39,7 @@ CORS는 엄격함을 풀어주는 정책이라고 했고, 이것을 이용하기
 
 만약 허용된 요청이 아니라면 다음과 같은 에러가 발생한다.
 
-> Access to XMLHttpRequest at 'https://www.comepet.org' from origin 'https://comepet.netlify.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check
+> Access to XMLHttpRequest at 'https://www.comepet.com' from origin 'https://comepet.netlify.app' has been blocked by CORS policy: Response to preflight request doesn't pass access control check
 
 허용된 요청이라면 상태 코드 200인 응답을 다음과 같은 헤더와 함께 보낸다.
 
@@ -56,7 +56,7 @@ preflight 요청이 성공적으로 이뤄지면 브라우저는 본 요청을 �
 
 > The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '\*' when the request's credentials mode is 'include'. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
 
-와일드카드로 전체 Origin을 허용해버리면 어느 Origin에서나 Credential이 담긴 응답을 받을 수 있으므로 당연히 허용하지 않는 것이 자연스럽다. 서버에서 와일드 카드를 실제 도메인으로 수정해 해결했다.
+와일드 카드로 전체 Origin을 허용해버리면 어느 Origin에서나 Credential이 담긴 응답을 받을 수 있으므로 당연히 허용하지 않는 것이 자연스럽다. 서버 설정에서 와일드 카드를 실제 Orgin으로 수정해 해결했다.
 
 ## CORS 문제 해결 사례 2
 
