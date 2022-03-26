@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {Notion} from '@styled-icons/simple-icons/Notion';
 import {Github} from '@styled-icons/simple-icons/Github';
+import {Newspaper} from '@styled-icons/remix-fill/Newspaper';
 
 export default function Header() {
   const linkIcons = [
@@ -10,13 +11,19 @@ export default function Header() {
       id: 1,
       icon: () => <Github />,
       iconName: 'Github',
-      url: 'https://github.com/sanoopark',
+      url: '/github',
     },
     {
       id: 2,
       icon: () => <Notion />,
       iconName: 'Study',
-      url: 'https://sanoo.notion.site/sanoo-dev-835c3d91841e4e74bde822b1d10029ef',
+      url: '/study',
+    },
+    {
+      id: 3,
+      icon: () => <Newspaper />,
+      iconName: 'Resume',
+      url: '/resume',
     },
   ];
 
@@ -108,9 +115,12 @@ const SocialIcon = styled.a`
   width: 100%;
   height: 100%;
   color: ${({theme}) => theme.colors.muted};
-  transition: all 0.2s ease-in-out;
   font-size: 1.2rem;
   margin-left: 1.4rem;
+
+  &:last-child {
+    margin-left: 1.3rem;
+  }
 
   &:hover {
     color: ${({theme}) => theme.colors.text};
