@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/styled-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> 
   <img src="https://img.shields.io/badge/markdown-000000?style=for-the-badge&logo=markdown&logoColor=white"> 
   <br />
-  <p align="middle"><b>스타터 없이 제작하는 기술 블로그</b></p>
+  <p align="middle"><b>스타터 없이 만드는 기술 블로그</b></p>
 </p>
 
 ## ⭐️ 목차
@@ -29,7 +29,6 @@
 - 반응형 디자인
 - 마크다운 렌더링
 - Github 댓글
-- 코드 하이라이팅
 
 ## ⭐️ 스크린샷
 
@@ -42,20 +41,20 @@
 </thead>
 <tbody>
   <tr>
-    <td><img src="https://user-images.githubusercontent.com/81365896/162206022-165a5d6a-0862-4bc0-b6a4-76d22030bb36.png"></td>
-    <td><img src="https://user-images.githubusercontent.com/81365896/162200270-b0418a23-fe58-41c5-b955-a27efe5e9da9.png"></td>
+    <td><img src="https://user-images.githubusercontent.com/81365896/162799696-d3656137-959e-4256-b74d-517e87e12b34.png"></td>
+    <td><img src="https://user-images.githubusercontent.com/81365896/162799073-a25b93b4-a818-47dc-a373-e9349d1b30f4.png"></td>
   </tr>
 </tbody>
 <thead>
   <tr>
     <th>Github 댓글</th>
-    <th>코드 하이라이팅</th>
+    <th></th>
   </tr>
 </thead>
 <tbody>
   <tr>
-    <td><img src="https://user-images.githubusercontent.com/81365896/162200546-d5a45b24-3db5-462c-a558-888471bb7a7c.png"></td>
-    <td><img src="https://user-images.githubusercontent.com/81365896/162200848-a0f6067d-2fa8-4b76-8487-3533fb638b7e.png"></td>
+    <td><img src="https://user-images.githubusercontent.com/81365896/162798801-4a77e798-77ec-4d09-a957-67351b529d01.png"></td>
+    <td></td>
   </tr>
 </tbody>
 </table>
