@@ -19,12 +19,6 @@ export default function Header() {
       iconName: 'Study',
       url: '/study',
     },
-    {
-      id: 3,
-      icon: () => <Newspaper />,
-      iconName: 'Resume',
-      url: '/resume',
-    },
   ];
 
   return (
