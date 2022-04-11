@@ -52,24 +52,22 @@ preflight 요청이 성공적으로 이뤄지면 브라우저는 본 요청을 �
 
 ## CORS 문제 해결 사례 1
 
-서버에서 HttpOnly 쿠키와 같이 Credential이 포함된 응답을 보낼 때, `Access-Control-Allow-Origin`이 `*`(와일드 카드)라면 클라이언트에서 다음과 같은 에러가 발생한다.
+클라이언트에서 `Set-Cookie` Header를 통해 쿠키를 저장하기 위해서, fetch의 `credential`을 `include`로 설정하거나, axios의 `withCredentails`을 true로 설정한다. 그런데 이러한 상황에서 서버로부터 받은 응답의 `Access-Control-Allow-Origin` Header가 와일드카드(`*`)라면 다음과 같은 에러가 발생한다.
 
 > The value of the 'Access-Control-Allow-Origin' header in the response must not be the wildcard '\*' when the request's credentials mode is 'include'. The credentials mode of requests initiated by the XMLHttpRequest is controlled by the withCredentials attribute.
 
-와일드 카드로 전체 Origin을 허용해버리면 어느 Origin에서나 Credential이 담긴 응답을 받을 수 있으므로 당연히 허용하지 않는 것이 자연스럽다. 서버 설정에서 와일드 카드를 실제 Orgin으로 수정해 해결했다.
+와일드 카드로 전체 Origin을 허용해버리면 어느 Origin에서나 쿠키를 저장할 수 있으므로 허용하지 않는 것이 자연스럽다. 서버 설정에서 `Access-Control-Allow-Origin`를 실제 Orgin으로 변경해 해결할 수 있다.
 
 ## CORS 문제 해결 사례 2
 
+브라우저마다 다르지만 적어도 크롬에서는, 크로스 사이트 쿠키를 저장하기 위해 서버에서 `SameSite=None`을 `Set-Cookie`에 추가해야 한다. 그 이유는 2020년 2월에 업데이트된 Chrome 80부터 `SameSite` 값이 없다면 `Lax`를 기본값으로 설정하기 때문이다. `SameSite` 값이 없다면 다음과 같은 경고 메시지를 볼 수 있다.
+
 > This Set-Cookie didn’t specify a “SameSite” attribute and was defaulted to “SameSite=Lax,” and was blocked because it came from a cross-site response which was not the response to a top-level navigation. The Set-Cookie had to have been set with “SameSite=None” to enable cross-site usage.
 
-서버의 응답 쿠키에 `SameSite=None`을 추가하라는 경고 메시지다. 클라이언트에서는 Set-Cookie에 담긴 값이 쿠키에 저장되지 않는다. 그리고 다음과 같이 응답 헤더 Set-Cookie 부분에 경고 표시가 나타난다.
+Lax는 무조건 SameSite 여부를 체크하고, 허용된 몇 개의 패턴 이외에는 쿠키를 전송하지 않도록 막는 쿠키 정책이다. 따라서 클라이언트에서는 Set-Cookie에 담긴 값이 쿠키에 저장되지 않는다.
 
-> A cookie associated with a cross-site resource at (Here is my domain) was set without the SameSite attribute. A future release of Chrome will only deliver cookies with cross-site requests if they are set with SameSite=None and Secure.
+![image](https://user-images.githubusercontent.com/81365896/162779633-3ac6113a-ecfb-4e2d-9e63-30e70159ee37.png)
 
-2020년 2월에 업데이트된 Chrome 80부터는 SameSite 값이 없는 쿠키의 기본값이 Lax이기 때문에 발생한 문제다. Lax는 무조건 SameSite 여부를 체크하고, 허용된 몇 개의 패턴 이외에는 쿠키를 전송하지 않도록 막는 쿠키 정책이다.
+또한 [Google Search Central Blog](https://developers.google.com/search/blog/2020/01/get-ready-for-new-samesitenone-secure)를 보면 기본적으로 퍼스트 파티 쿠키를 권장하지만, 많은 개발자들이 크로스 사이트 쿠키를 사용해 CSRF 공격에 노출되기 때문에, HTTPS에서만 쿠키에 접근할 수 있도록 `secure` 속성을 사용하도록 강제하는 것을 알 수 있다.
 
-![image](https://user-images.githubusercontent.com/81365896/154746121-783a95dd-fefd-4885-8c64-e08643e79eba.png)
-
-[Get Ready for New SameSite=None; Secure Cookie Settings ](https://developers.google.com/search/blog/2020/01/get-ready-for-new-samesitenone-secure)
-
-크로스 사이트 쿠키를 사용할 때는 `SameSite=None`을 적용하고, `Secure` 옵션을 사용하라는 구글의 설명이다. 그렇다면 `SameSite=None`은 왜 `Secure`와 함께 사용해야 하는 걸까? 아마도 `SameSite=None`으로 동일 출처가 아닌데 쿠키를 보내는 상황이라면, 패킷 스니핑으로 쿠키가 탈취될 위험을 HTTPS를 통해 사전에 차단하는 것이라고 생각된다.
+결론적으로 `Set-Cookie` 값에 `SameSite=None`과 `secure`를 추가하면 된다. 또는 프록시 서버를 통해 `origin`을 `allow-origin`과 일치시켜 same-site 상황을 만들어주면 된다.
